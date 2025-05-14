@@ -375,7 +375,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
                   style={{ 
                     backgroundColor: '#f0e6d2',
                     transition: 'all 0.3s ease-in-out',
-                    boxShadow: errors.email ? 'inset 0 0 2px rgba(146, 64, 14, 0.4)' : 'none'
+                    boxShadow: errors.email ? 'inset 0 0 2px rgba(146, 64, 14, 0.4)' : 'none',
+                    animation: visibleErrors.email ? (isDarkMode ? 'blink-border-dark 0.8s infinite' : 'blink-border 0.8s infinite') : 'none'
                   }}
                 >
                   <Input
@@ -412,14 +413,30 @@ const LoginForm: React.FC<LoginFormProps> = ({
                     }
                   />
                   {visibleErrors.email && (
-                    <div className={`placeholder-warning ${isDarkMode ? 'pulse-error-dark' : 'pulse-error'}`} 
+                    <div className="placeholder-warning" 
                          style={{
                            fontWeight: '500', 
                            fontStyle: 'italic', 
                            paddingLeft: '8px',
+                           paddingRight: '8px',
+                           paddingTop: '2px',
+                           paddingBottom: '2px',
+                           borderRadius: '2px',
+                           animation: isDarkMode 
+                             ? 'color-pulse-dark 0.8s ease-in-out infinite, pulse-bg-dark 0.8s ease-in-out infinite' 
+                             : 'color-pulse 0.8s ease-in-out infinite, pulse-bg 0.8s ease-in-out infinite',
+                           opacity: '1',
                            color: isDarkMode ? '#d3b88c' : '#42210b'
                          }}>
-                      <span className="vintage-error-text">{errors.email}</span>
+                      <span 
+                        className="vintage-error-text"
+                        style={{
+                          display: 'inline-block',
+                          animation: isDarkMode 
+                            ? 'color-pulse-dark 0.8s ease-in-out infinite' 
+                            : 'color-pulse 0.8s ease-in-out infinite'
+                        }}
+                      >{errors.email}</span>
                     </div>
                   )}
                 </div>
@@ -431,7 +448,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
                   style={{ 
                     backgroundColor: '#f0e6d2',
                     transition: 'all 0.3s ease-in-out',
-                    boxShadow: errors.password ? 'inset 0 0 2px rgba(146, 64, 14, 0.4)' : 'none'
+                    boxShadow: errors.password ? 'inset 0 0 2px rgba(146, 64, 14, 0.4)' : 'none',
+                    animation: visibleErrors.password ? (isDarkMode ? 'blink-border-dark 0.8s infinite' : 'blink-border 0.8s infinite') : 'none'
                   }}
                 >
                   <Input
@@ -491,14 +509,30 @@ const LoginForm: React.FC<LoginFormProps> = ({
                     }
                   />
                   {visibleErrors.password && (
-                    <div className={`placeholder-warning ${isDarkMode ? 'pulse-error-dark' : 'pulse-error'}`}
+                    <div className="placeholder-warning" 
                          style={{
                            fontWeight: '500', 
                            fontStyle: 'italic', 
                            paddingLeft: '8px',
+                           paddingRight: '8px',
+                           paddingTop: '2px',
+                           paddingBottom: '2px',
+                           borderRadius: '2px',
+                           animation: isDarkMode 
+                             ? 'color-pulse-dark 0.8s ease-in-out infinite, pulse-bg-dark 0.8s ease-in-out infinite' 
+                             : 'color-pulse 0.8s ease-in-out infinite, pulse-bg 0.8s ease-in-out infinite',
+                           opacity: '1',
                            color: isDarkMode ? '#d3b88c' : '#42210b'
                          }}>
-                      <span className="vintage-error-text">{errors.password}</span>
+                      <span 
+                        className="vintage-error-text"
+                        style={{
+                          display: 'inline-block',
+                          animation: isDarkMode 
+                            ? 'color-pulse-dark 0.8s ease-in-out infinite' 
+                            : 'color-pulse 0.8s ease-in-out infinite'
+                        }}
+                      >{errors.password}</span>
                     </div>
                   )}
                 </div>

@@ -214,35 +214,51 @@ input, textarea, select {
   100% { opacity: 0; visibility: hidden; }
 }
 
+@keyframes blink-border {
+  0%, 100% { border-color: rgba(146, 64, 14, 0.3); }
+  50% { border-color: rgba(146, 64, 14, 1); }
+}
+
+@keyframes blink-border-dark {
+  0%, 100% { border-color: rgba(211, 184, 140, 0.3); }
+  50% { border-color: rgba(211, 184, 140, 1); }
+}
+
+@keyframes pulse-bg {
+  0%, 100% { background-color: rgba(146, 64, 14, 0.05); }
+  50% { background-color: rgba(146, 64, 14, 0.15); }
+}
+
+@keyframes pulse-bg-dark {
+  0%, 100% { background-color: rgba(211, 184, 140, 0.05); }
+  50% { background-color: rgba(211, 184, 140, 0.15); }
+}
+
 @keyframes color-pulse {
-  0% { 
+  0%, 100% { 
     color: rgba(139, 69, 19, 0.5); 
     text-shadow: 0 0 0px rgba(139, 69, 19, 0);
-  } /* Start with much lighter sepia tone */
+    opacity: 0.7;
+  }
   50% { 
     color: rgba(146, 64, 14, 1); 
     text-shadow: 0 0 1px rgba(146, 64, 14, 0.3);
-  } /* Pulse to full amber/button color */
-  100% { 
-    color: rgba(139, 69, 19, 0.5); 
-    text-shadow: 0 0 0px rgba(139, 69, 19, 0);
-  } /* Back to much lighter sepia tone */
+    opacity: 1;
+  }
 }
 
 /* Dark mode version of the animation */
 @keyframes color-pulse-dark {
-  0% { 
+  0%, 100% { 
     color: rgba(211, 184, 140, 0.5); 
     text-shadow: 0 0 0px rgba(211, 184, 140, 0);
-  } /* Start with much lighter gold tone */
+    opacity: 0.7;
+  }
   50% { 
     color: rgba(211, 184, 140, 1); 
     text-shadow: 0 0 1px rgba(211, 184, 140, 0.3);
-  } /* Pulse to full gold */
-  100% { 
-    color: rgba(211, 184, 140, 0.5); 
-    text-shadow: 0 0 0px rgba(211, 184, 140, 0);
-  } /* Back to much lighter gold tone */
+    opacity: 1;
+  }
 }
 
 /* Special class for dark mode warnings */
@@ -276,8 +292,16 @@ input, textarea, select {
 /* Pulse animation classes */
 .pulse-error {
   animation: color-pulse 0.8s ease-in-out infinite !important;
+  animation-delay: 0s !important;
+  animation-fill-mode: both !important;
+  will-change: color, text-shadow, opacity !important;
+  display: inline-block !important;
 }
 
 .pulse-error-dark {
   animation: color-pulse-dark 0.8s ease-in-out infinite !important;
+  animation-delay: 0s !important;
+  animation-fill-mode: both !important;
+  will-change: color, text-shadow, opacity !important;
+  display: inline-block !important;
 }
