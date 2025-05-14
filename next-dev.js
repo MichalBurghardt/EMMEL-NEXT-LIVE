@@ -14,13 +14,18 @@ const NEXT_DIR = '.next';
  */
 async function forceClosePort(port) {
   return new Promise((resolve) => {
-    // Try multiple methods to close the port
-    const commands = [
-      `netstat -ano | findstr :${port} | findstr LISTENING && taskkill /F /PID`,
-      `taskkill /F /IM node.exe`,
-      `taskkill /F /IM "Microsoft Edge"`,
-      `taskkill /F /IM chrome.exe`
-    ];
+    // Plattformspezifische Befehle
+    const commands = process.platform === 'win32' 
+      ? [
+          `netstat -ano | findstr :${port} | findstr LISTENING && taskkill /F /PID`,
+          `taskkill /F /IM node.exe`,
+          `taskkill /F /IM "Microsoft Edge"`,
+          `taskkill /F /IM chrome.exe`
+        ]
+      : [
+          `lsof -i :${port} | grep LISTEN | awk '{print $2}' | xargs -r kill -9`,
+          `pkill -f node`
+        ];
 
     const executeCommands = async () => {
       for (const command of commands) {
@@ -52,8 +57,12 @@ async function cleanupNextDir() {
   try {
     const nextPath = path.join(process.cwd(), NEXT_DIR);
     if (fs.existsSync(nextPath)) {
-      // Remove .next directory
-      exec(`rmdir /s /q "${nextPath}"`, (error) => {
+      // Plattformunabhängiger Befehl zum Löschen des Verzeichnisses
+      const command = process.platform === 'win32' 
+        ? `rmdir /s /q "${nextPath}"`
+        : `rm -rf "${nextPath}"`;
+        
+      exec(command, (error) => {
         if (error) {
           console.log(`\x1b[33mError cleaning .next directory: ${error.message}\x1b[0m`);
         } else {

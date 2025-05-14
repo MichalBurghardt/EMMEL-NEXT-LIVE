@@ -19,9 +19,9 @@ const nextConfig: NextConfig = {
   },
   // External packages that should be bundled by the server
   serverExternalPackages: ['mongoose'],
-  // Wyłączam tracing, który powodował błąd EPERM
+  // Wyłączam tracing i eksperymentalne opcje, które mogą powodować problemy
   experimental: {
-    optimizeCss: true, // Analizuje CSS podczas kompilacji
+    optimizeCss: false, // Wyłączam optymalizację CSS, która może powodować problemy
   }
 };
 
