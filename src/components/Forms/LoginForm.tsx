@@ -31,12 +31,12 @@ const LoginForm: React.FC<LoginFormProps> = ({
     rememberMe: false
   });
   const [errors, setErrors] = useState({
-    email: '',
-    password: ''
+    email: 'wird benötigt!',
+    password: 'wird benötigt!'
   });
   const [visibleErrors, setVisibleErrors] = useState({
-    email: false,
-    password: false
+    email: true,
+    password: true
   });
   const [animatedForm, setAnimatedForm] = useState(false);
   
@@ -59,35 +59,41 @@ const LoginForm: React.FC<LoginFormProps> = ({
     setTimeout(() => setAnimatedForm(true), 300);
   }, []);
 
-  // Auto-hide error messages after 3 seconds
+  // Reset errors when fields are filled
   useEffect(() => {
-    if (errors.email) {
+    if (formData.email.trim() !== '') {
+      setVisibleErrors(prev => ({ ...prev, email: false }));
+    } else {
       setVisibleErrors(prev => ({ ...prev, email: true }));
-      const timer = setTimeout(() => {
-        setVisibleErrors(prev => ({ ...prev, email: false }));
-      }, 3000);
-      return () => clearTimeout(timer);
     }
-  }, [errors.email]);
+  }, [formData.email]);
 
   useEffect(() => {
-    if (errors.password) {
+    if (formData.password.trim() !== '') {
+      setVisibleErrors(prev => ({ ...prev, password: false }));
+    } else {
       setVisibleErrors(prev => ({ ...prev, password: true }));
-      const timer = setTimeout(() => {
-        setVisibleErrors(prev => ({ ...prev, password: false }));
-      }, 3000);
-      return () => clearTimeout(timer);
     }
-  }, [errors.password]);
+  }, [formData.password]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     
-    // Clear error for changed field
-    if (errors[name as keyof typeof errors]) {
+    // Reset error message to "wird benötigt!" when field is cleared
+    if ((name === 'email' || name === 'password') && value.trim() === '') {
       setErrors(prev => ({
         ...prev,
-        [name]: ''
+        [name]: 'wird benötigt!'
+      }));
+      setVisibleErrors(prev => ({
+        ...prev,
+        [name]: true
+      }));
+    } else if (value.trim() !== '') {
+      // Hide error message when field has value
+      setVisibleErrors(prev => ({
+        ...prev,
+        [name]: false
       }));
     }
     
@@ -120,21 +126,23 @@ const LoginForm: React.FC<LoginFormProps> = ({
     
     // Sprawdź pole email
     if (!formData.email || formData.email.trim() === '') {
-      newErrors.email = 'Ihre eBriefkaste wird benötigt';
+      newErrors.email = 'wird benötigt!';
       isValid = false;
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Ungültige eBriefkaste';
+      newErrors.email = 'falsche E-Mail-Adresse';
       isValid = false;
+      setVisibleErrors(prev => ({ ...prev, email: true })); // Show error for invalid email
     }
     
     // Sprawdź pole hasła
     if (!formData.password || formData.password.trim() === '') {
-      newErrors.password = 'Ihr eBriefkastenschlüssel wird benötigt';
+      newErrors.password = 'wird benötigt!';
       isValid = false;
     } else if (formData.password.length < 6) {
       // Opcjonalna dodatkowa walidacja hasła
-      newErrors.password = 'Mindestens 6 Zeichen erforderlich';
+      newErrors.password = 'falsches Passwort';
       isValid = false;
+      setVisibleErrors(prev => ({ ...prev, password: true })); // Show error for invalid password
     }
     
     // Ustaw komunikaty błędów
@@ -403,15 +411,16 @@ const LoginForm: React.FC<LoginFormProps> = ({
                       </svg>
                     }
                   />
-                  {errors.email && visibleErrors.email && (
+                  {visibleErrors.email && (
                     <div className="placeholder-warning" 
                          style={{
                            fontWeight: '500', 
                            fontStyle: 'italic', 
                            paddingLeft: '8px',
-                           animation: 'notificationPulse 0.6s ease-out, fadeOut 0.5s ease-in 2.5s forwards'
+                           animation: isDarkMode ? 'color-pulse-dark 1s ease-in-out infinite' : 'color-pulse 1s ease-in-out infinite',
+                           color: isDarkMode ? '#d3b88c' : '#42210b'
                          }}>
-                      <span className="vintage-error-text">wird benötigt!</span>
+                      <span className="vintage-error-text">{errors.email}</span>
                     </div>
                   )}
                 </div>
@@ -482,15 +491,16 @@ const LoginForm: React.FC<LoginFormProps> = ({
                       </button>
                     }
                   />
-                  {errors.password && visibleErrors.password && (
+                  {visibleErrors.password && (
                     <div className="placeholder-warning" 
                          style={{
                            fontWeight: '500', 
                            fontStyle: 'italic', 
                            paddingLeft: '8px',
-                           animation: 'notificationPulse 0.6s ease-out, fadeOut 0.5s ease-in 2.5s forwards'
+                           animation: isDarkMode ? 'color-pulse-dark 1s ease-in-out infinite' : 'color-pulse 1s ease-in-out infinite',
+                           color: isDarkMode ? '#d3b88c' : '#42210b'
                          }}>
-                      <span className="vintage-error-text">wird benötigt!</span>
+                      <span className="vintage-error-text">{errors.password}</span>
                     </div>
                   )}
                 </div>
@@ -603,7 +613,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
               }}
               aria-label="Toggle dark mode"
             >
-              {isDarkMode ? "Tageslicht" : "Nachtmodus"}
+              {isDarkMode ? "Hell" : "Dunkel"}
             </button>
           </div>
 
