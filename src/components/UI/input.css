@@ -1,0 +1,238 @@
+/* Override browser autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #f0e6d2 inset !important;
+  -webkit-text-fill-color: #42210b;
+  transition: background-color 5000s ease-in-out 0s;
+  background-color: #f0e6d2 !important;
+  color: #42210b !important;
+}
+
+/* Add additional overrides for focus states */
+input:focus {
+  background-color: #f0e6d2 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Set global body background color */
+body {
+  background-color: #f0e6d2;
+}
+
+/* Vintage error message styling with printer effect */
+.vintage-error {
+  position: relative;
+  overflow: hidden;
+  animation: printerEffect 0.8s ease-out forwards;
+}
+
+.vintage-error::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    rgba(240, 230, 210, 0.1) 0%, 
+    rgba(226, 207, 173, 0.3) 10%, 
+    rgba(240, 230, 210, 0.1) 20%);
+  animation: paperScan 1.2s ease-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Styl dla gwiazdki wymaganego pola */
+label[required]::after {
+  content: '*';
+  color: rgba(146, 64, 14, 0.7);
+  margin-left: 2px;
+  font-weight: normal;
+}
+
+/* Ukryj domyślne komunikaty przeglądarki */
+input:invalid {
+  box-shadow: none !important;
+}
+
+/* Ukryj komunikaty walidacji */
+::-webkit-validation-bubble-message,
+::-webkit-validation-bubble-arrow-clipper,
+::-webkit-validation-bubble-arrow,
+::-webkit-validation-bubble {
+  display: none !important;
+}
+
+/* Ogólny styl dla komunikatów walidacji */
+form:invalid .validation-message {
+  display: none !important;
+}
+
+/* Style dla gwiazdek w formularzu (dla inputów z required) */
+.required-star {
+  color: rgba(146, 64, 14, 0.7);
+  font-style: normal;
+  margin-left: 2px;
+}
+
+/* Styl dla przycisków w trybie fokusa */
+button:focus {
+  outline: none;
+}
+
+/* Dodatkowy styl dla pól z błędami */
+input.has-error {
+  border-color: rgba(146, 64, 14, 0.7) !important;
+}
+
+@keyframes printerEffect {
+  0% { 
+    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%); 
+    opacity: 0.7;
+  }
+  30% { opacity: 0.9; }
+  100% { 
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    opacity: 1;
+  }
+}
+
+@keyframes paperScan {
+  0% { transform: translateX(-100%); opacity: 0.4; }
+  50% { opacity: 0.7; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+    max-height: 0;
+    filter: blur(1px);
+  }
+  40% {
+    filter: blur(0.5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 50px;
+    filter: blur(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  15%, 45%, 75% { transform: translateX(-4px) rotate(-0.25deg); }
+  30%, 60%, 90% { transform: translateX(4px) rotate(0.25deg); }
+}
+
+/* Vintage paper background */
+.vintage-paper-bg {
+  background-color: #f0e6d2 !important;
+}
+
+/* Form input styling */
+.vintage-input {
+  background-color: #f0e6d2 !important;
+  border-color: rgba(66, 33, 11, 0.3);
+  color: #42210b;
+  font-family: 'Courier Prime', monospace;
+  letter-spacing: 0.5px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.vintage-input:focus {
+  border-color: rgba(66, 33, 11, 0.6);
+  outline: none;
+  box-shadow: none;
+  background-color: #f5efe3 !important;
+  transition: all 0.3s ease;
+  letter-spacing: 0.6px;
+}
+
+.vintage-input::placeholder {
+  color: rgba(66, 33, 11, 0.6);
+  font-style: italic;
+  font-family: 'Courier Prime', monospace;
+  font-weight: 400;
+  letter-spacing: 0.55px;
+  opacity: 0.85;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 1px rgba(240, 230, 210, 0.5);
+}
+
+.vintage-input:focus::placeholder {
+  opacity: 0.6;
+  color: rgba(66, 33, 11, 0.4);
+  transform: translateX(3px);
+}
+
+/* Make sure we have custom styling for browsers that don't support the CSS variables */
+input, textarea, select {
+  background-color: #f0e6d2 !important;
+  color: #42210b !important;
+}
+
+/* Style for vintage error text with a subtle printing press effect */
+.vintage-error-text {
+  position: relative;
+  display: inline-block;
+  font-family: 'Courier Prime', monospace;
+  letter-spacing: 0.7px;
+  text-transform: none;
+  color: rgba(139, 69, 19, 0.9);
+  text-shadow: 0px 0px 0.5px rgba(66, 33, 11, 0.3);
+  animation: textShake 0.5s ease-out;
+}
+
+@keyframes textShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-1px); }
+  40% { transform: translateX(1px); }
+  60% { transform: translateX(-0.5px); }
+  80% { transform: translateX(0.5px); }
+}
+
+/* Animacja dla przypomnienia o wymaganych polach */
+@keyframes notificationPulse {
+  0% { opacity: 0; transform: translate(10px, -50%); letter-spacing: 0.5px; }
+  10% { opacity: 1; transform: translate(0, -50%); letter-spacing: 0.7px; }
+  20% { transform: translate(0, -50%); letter-spacing: 0.6px; }
+  30% { transform: translate(0, -50%); letter-spacing: 0.7px; }
+  90% { opacity: 1; transform: translate(0, -50%); }
+  100% { opacity: 0.9; transform: translate(0, -50%); }
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+.placeholder-warning {
+  position: absolute;
+  right: 44px; /* Moved 2px further from the edge */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  font-style: italic;
+  color: rgba(139, 69, 19, 0.85); /* Darker sepia tone for better readability */
+  background-color: rgba(240, 230, 210, 0); /* Transparent background */
+  padding: 2px 4px 2px 6px; /* Added more padding on the left */
+  white-space: nowrap;
+  pointer-events: none;
+  animation: notificationPulse 3s ease-in-out forwards;
+  font-family: 'Courier Prime', monospace;
+  letter-spacing: 0.7px;
+  z-index: 5;
+  transition: all 0.3s ease;
+  border-left: 1px solid rgba(146, 64, 14, 0.3); /* Subtle separator from placeholder */
+  margin-left: 6px; /* Increased margin */
+  text-shadow: 0px 0px 1px rgba(66, 33, 11, 0.05); /* Very subtle text shadow for vintage effect */
+  box-shadow: 0px 0px 0px 2px rgba(240, 230, 210, 0.7); /* Subtle highlight around text */
+}
