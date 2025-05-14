@@ -215,16 +215,40 @@ input, textarea, select {
 }
 
 @keyframes color-pulse {
-  0% { color: rgba(139, 69, 19, 0.7); } /* Start with lighter sepia tone */
-  50% { color: rgba(146, 64, 14, 1); }   /* Pulse to full amber/button color */
-  100% { color: rgba(139, 69, 19, 0.7); } /* Back to lighter sepia tone */
+  0% { 
+    color: rgba(139, 69, 19, 0.5); 
+    text-shadow: 0 0 0px rgba(139, 69, 19, 0);
+  } /* Start with much lighter sepia tone */
+  50% { 
+    color: rgba(146, 64, 14, 1); 
+    text-shadow: 0 0 1px rgba(146, 64, 14, 0.3);
+  } /* Pulse to full amber/button color */
+  100% { 
+    color: rgba(139, 69, 19, 0.5); 
+    text-shadow: 0 0 0px rgba(139, 69, 19, 0);
+  } /* Back to much lighter sepia tone */
 }
 
 /* Dark mode version of the animation */
 @keyframes color-pulse-dark {
-  0% { color: rgba(211, 184, 140, 0.7); } /* Start with lighter gold tone */
-  50% { color: rgba(211, 184, 140, 1); }   /* Pulse to full gold */
-  100% { color: rgba(211, 184, 140, 0.7); } /* Back to lighter gold tone */
+  0% { 
+    color: rgba(211, 184, 140, 0.5); 
+    text-shadow: 0 0 0px rgba(211, 184, 140, 0);
+  } /* Start with much lighter gold tone */
+  50% { 
+    color: rgba(211, 184, 140, 1); 
+    text-shadow: 0 0 1px rgba(211, 184, 140, 0.3);
+  } /* Pulse to full gold */
+  100% { 
+    color: rgba(211, 184, 140, 0.5); 
+    text-shadow: 0 0 0px rgba(211, 184, 140, 0);
+  } /* Back to much lighter gold tone */
+}
+
+/* Special class for dark mode warnings */
+.dark-warning {
+  animation: color-pulse-dark 0.8s ease-in-out infinite !important;
+  color: rgba(211, 184, 140, 0.85) !important;
 }
 
 .placeholder-warning {
@@ -242,9 +266,18 @@ input, textarea, select {
   font-family: 'Courier Prime', monospace;
   letter-spacing: 0.7px;
   z-index: 5;
-  transition: all 0.3s ease;
   border-left: 1px solid rgba(146, 64, 14, 0.3); /* Subtle separator from placeholder */
   margin-left: 6px; /* Increased margin */
   text-shadow: 0px 0px 1px rgba(66, 33, 11, 0.05); /* Very subtle text shadow for vintage effect */
   box-shadow: 0px 0px 0px 2px rgba(240, 230, 210, 0.7); /* Subtle highlight around text */
+  animation: color-pulse 0.8s ease-in-out infinite; /* Added animation directly to the class */
+}
+
+/* Pulse animation classes */
+.pulse-error {
+  animation: color-pulse 0.8s ease-in-out infinite !important;
+}
+
+.pulse-error-dark {
+  animation: color-pulse-dark 0.8s ease-in-out infinite !important;
 }

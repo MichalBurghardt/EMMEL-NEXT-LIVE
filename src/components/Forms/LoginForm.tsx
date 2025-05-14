@@ -412,12 +412,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
                     }
                   />
                   {visibleErrors.email && (
-                    <div className="placeholder-warning" 
+                    <div className={`placeholder-warning ${isDarkMode ? 'pulse-error-dark' : 'pulse-error'}`} 
                          style={{
                            fontWeight: '500', 
                            fontStyle: 'italic', 
                            paddingLeft: '8px',
-                           animation: isDarkMode ? 'color-pulse-dark 1s ease-in-out infinite' : 'color-pulse 1s ease-in-out infinite',
                            color: isDarkMode ? '#d3b88c' : '#42210b'
                          }}>
                       <span className="vintage-error-text">{errors.email}</span>
@@ -492,12 +491,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
                     }
                   />
                   {visibleErrors.password && (
-                    <div className="placeholder-warning" 
+                    <div className={`placeholder-warning ${isDarkMode ? 'pulse-error-dark' : 'pulse-error'}`}
                          style={{
                            fontWeight: '500', 
                            fontStyle: 'italic', 
                            paddingLeft: '8px',
-                           animation: isDarkMode ? 'color-pulse-dark 1s ease-in-out infinite' : 'color-pulse 1s ease-in-out infinite',
                            color: isDarkMode ? '#d3b88c' : '#42210b'
                          }}>
                       <span className="vintage-error-text">{errors.password}</span>
